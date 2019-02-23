@@ -39,7 +39,7 @@ const Button = styled.button`
   min-width: 10rem;
   color: #fff;
   border: none;
-  transform: skewX(-4deg)
+  transform: skewX(-4deg);
 `
 
 export default () => {
