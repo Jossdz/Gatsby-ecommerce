@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import { graphql, useStaticQuery } from 'gatsby';
 import Layout from '../components/layout'
+import styled from 'styled-components'
 
 const Product = props => {
   let stripe
@@ -18,7 +19,7 @@ const Product = props => {
     const {error} = await stripe.redirectToCheckout({
       items: [{sku, quantity: 1}],
       successUrl: 'http://localhost:8000/success',
-      cancelUrl: 'http://localhost:8000/canceled',
+      cancelUrl: 'http://localhost:8000/products',
     })
     if(error){
       console.error(error)
@@ -28,10 +29,18 @@ const Product = props => {
   return (
     <form onSubmit={handleSubmit(id)}>
       <h2>{name} ({formatedPrice})</h2>
-      <button type='submit'>buy</button>
+      <Button type='submit'>buy</Button>
     </form>
   )
 }
+
+const Button = styled.button`
+  background-color: #663399;
+  min-width: 10rem;
+  color: #fff;
+  border: none;
+  transform: skewX(-4deg)
+`
 
 export default () => {
   const data = useStaticQuery(graphql`
@@ -50,7 +59,7 @@ export default () => {
     }
   }
 `)
-console.log(data)
+
   return (
       <Layout>
         {data.allStripeSku.edges.map(({node: sku}) => (
