@@ -8,6 +8,7 @@ const Product = props => {
   const {id, price, name } = props
 
   useEffect(()=>{
+    console.log(id)
     stripe = window.Stripe(process.env.STRIPE_PK, {betas: ['checkout_beta_4']})
   }, [])
 
